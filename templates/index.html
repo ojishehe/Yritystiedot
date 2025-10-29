@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yritystiedot</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+  }
+
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+  }
+
+  form {
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+
+  input[type="text"]:focus {
+    border-color: #3498db;
+    outline: none;
+  }
+
+  input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #2980b9;
+  }
+
+  .results {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  h2 {
+    color: #2c3e50;
+  }
+
+  p {
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+<h1>Hae yritystiedot</h1>
+<form method="post">
+    Y-tunnus: <input type="text" name="business_id" placeholder="Syötä Y-tunnus" />
+    <input type="submit" value="Hae" />
+</form>
+
+{% if yritys_tiedot %}
+<div class="results">
+    {% if yritys_tiedot.status == 'OK' %}
+        <h2>Yrityksen tiedot</h2>
+        <p>Yrityksen nimi: {{ yritys_tiedot.parsed_data.company_name }}</p>
+        <p>Verkkosivusto: {{ yritys_tiedot.parsed_data.website }}</p>
+        {{ yritys_tiedot.parsed_data.website }}</a></p>
+        <p>Y-tunnus: {{ yritys_tiedot.parsed_data.business_id }}</p>
+        <p>Rekisteröintipäivä: {{ yritys_tiedot.parsed_data.registration_date }}</p>
+        <p>Yrityksen tila: {{ yritys_tiedot.parsed_data.status }}</p>
+        <h3>Osoite</h3>
+        <p>Katu: {{ yritys_tiedot.parsed_data.address.street }}</p>
+        <p>Postinumero: {{ yritys_tiedot.parsed_data.address.post_code }}</p>
+        <p>Kaupunki: {{ yritys_tiedot.parsed_data.address.city }}</p>
+    {% else %}
+        <p>Virhe: {{ yritys_tiedot.message }}</p>
+    {% endif %}
+</div>
+{% endif %}
+</body>
+</html>
