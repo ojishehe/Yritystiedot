@@ -96,7 +96,7 @@
         <p>Rekisteröintipäivä: {{ yritys_tiedot.parsed_data.registration_date }}</p>
         <p>Yrityksen tila: {{ yritys_tiedot.parsed_data.status }}</p>
         <h3>Osoite</h3>
-        <p>Street: {{ yritys_tiedot.parsed_data.address.street }}</p>
+        <p>Katu: {{ yritys_tiedot.parsed_data.address.street }}</p>
         <p>Postinumero: {{ yritys_tiedot.parsed_data.address.post_code }}</p>
         <p>Kaupunki: {{ yritys_tiedot.parsed_data.address.city }}</p>
     {% else %}
@@ -105,4 +105,5 @@
 </div>
 {% endif %}
 </body>
+
 </html>
